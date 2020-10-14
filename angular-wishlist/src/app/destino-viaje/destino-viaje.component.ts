@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
 import { destinoViaje } from '../models/destino-viaje.model';
 
 
@@ -9,6 +9,7 @@ import { destinoViaje } from '../models/destino-viaje.model';
 })
 export class DestinoViajeComponent implements OnInit {
   @Input() destino: destinoViaje;
+  @Output() clicked: EventEmitter<destinoViaje>;
   /*este valor que es un string que está en esta variable,
   cuando este componente se renderee, se dibuje,
   con este HTML, y este HTML sea envuelto por ese tag ficticio,
@@ -17,9 +18,16 @@ export class DestinoViajeComponent implements OnInit {
   es decir, en el CSS, se le va a asignar este valor. */
   @HostBinding('attr.class') cssClass = 'col-md-4';
   //
-  constructor() {}
+  constructor() {
+    this.clicked = new EventEmitter();
+  }
 
   ngOnInit(): void {
+  }
+
+  ir(){
+    this.clicked.emit(this.destino);
+    return false;
   }
 
 }
